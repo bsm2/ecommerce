@@ -1,0 +1,1 @@
+<a href="{{route('dashboard.product.edit',$id)}}"><div class="btn btn-info"><i class="fa fa-edit"></i></div></a>
