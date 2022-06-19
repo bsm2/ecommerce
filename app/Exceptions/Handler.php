@@ -11,6 +11,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\AuthorizationException;
 use Illuminate\Database\QueryException;
 use App\Http\Traits\ApiResponse;
+use Illuminate\Session\TokenMismatchException;
 use Throwable;
 
 
@@ -68,7 +69,10 @@ class Handler extends ExceptionHandler
                         return  $this->failure('cannot remove this',$e->getMessage(),409);
                     }
                 }
-                return $this->failure('Unexpected exception, Try later');
+                if($e instanceof TokenMismatchException){
+                    return  redirect()->back()->withInput($request->input());
+                }
+                //return $this->failure('Unexpected exception, Try later');
             }
 
         });

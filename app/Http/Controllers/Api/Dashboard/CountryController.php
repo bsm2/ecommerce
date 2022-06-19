@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Api\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CountryCollection;
+use App\Http\Resources\CountryResource;
 use App\Models\Country;
 use Illuminate\Http\Request;
 use App\Http\Traits\ApiResponse;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Upload;
 
 class CountryController extends Controller
@@ -17,9 +20,11 @@ class CountryController extends Controller
 
     public function index()
     {
-        $countries= new CountryCollection(Country::paginate(5));
-        
-        return $this->getData('this is all countries',$countries);
+        $countries=Country::all();
+        $countries=$this->sortData($countries);
+        $countries=$this->paginate($countries);
+        $countries=  CountryResource::collection($countries);
+        return $this->viewData('this is all countries',$countries);
     }
 
     public function store(Request $request)
@@ -42,9 +47,8 @@ class CountryController extends Controller
             ]); 
         }
 
-        Country::create($data);
-        session()->flash('success', __('site.added_successfully'));
-        return redirect()->route('dashboard.country.index');
+        $country=Country::create($data);
+        return $this->success( __('site.added_successfully'),$country);
     }
 
     public function edit(Country $country)

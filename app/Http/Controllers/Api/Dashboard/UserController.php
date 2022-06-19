@@ -3,18 +3,14 @@
 namespace App\Http\Controllers\Api\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\AdminCollection;
-use App\Http\Resources\AdminResource;
-use App\Models\Admin;
-use App\Http\Traits\ApiResponse;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Http\Traits\ApiResponse;
 
-class AdminController extends Controller
+class UserController extends Controller
 {
-    
     use ApiResponse;
-
     /**
      * Display a listing of the resource.
      *
@@ -22,12 +18,11 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admins=Admin::all();
-        $admins=$this->sortData($admins);
-        $admins=$this->paginate($admins);
-        $admins= new AdminCollection($admins);
-        return $this->success('this is all admins',$admins);
+        $users=User::paginate(5);
+        return $this->success('this is all users',$users);
+
     }
+
 
 
     /**
@@ -40,17 +35,17 @@ class AdminController extends Controller
     {
         $data = $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:admins',
+            'level'=>'required|in:user,company,vendor',
+            'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
-            'role'=>'required'
             
         ]);
 
         $data['password']= bcrypt($request->password);
-        $admin=Admin::create($data);
-        $admin->assignRole($request->role);
-        return $this->success('admin added ',$admin);
-
+        $data['verified']= false;
+        $data['verification_token']= User::generateVerificationCode();
+        $user = User::create($data);
+        return $this->success(__('site.added_successfully'),$user);
     }
 
 
@@ -58,14 +53,15 @@ class AdminController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request, User $user)
     {
         $data = $request->validate([
             'name' => 'required',
-            'email' =>  ['required','email',Rule::unique('admins')->ignore($admin->id)],
+            'level'=>'required|in:user,company,vendor',
+            'email' =>  ['required','email',Rule::unique('users')->ignore($user->id)],
             'password' => 'sometimes|nullable|min:6',
             
         ]);
@@ -73,21 +69,27 @@ class AdminController extends Controller
         if ($request->password) {
             $data['password']= bcrypt($request->password);
         }else{
-            $data['password']=$admin->password;
+            $data['password']=$user->password;
         }
-        $admin->update($data);
-        return $this->success('admin updated ',$admin);
+        if ($request->email) {
+            $data['verified']= false;
+            $data['verification_token']= User::generateVerificationCode();
+        }
+        $user->update($data);
+        return $this->success(__('site.updated_successfully'),$user);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Admin $admin)
+    public function destroy(User $user)
     {
-        $admin->delete();
-        return $this->success('admin deleted');
+        
+        $user->delete();
+        return $this->success( __('site.deleted_successfully'));
+
     }
 }

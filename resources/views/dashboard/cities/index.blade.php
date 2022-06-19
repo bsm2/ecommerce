@@ -28,6 +28,7 @@
             <!-- /.row -->
         <section >
     </div><!-- /.container-fluid -->
+    
 {{-- delete model --}}
     <div id="delall" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

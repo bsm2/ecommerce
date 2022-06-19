@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\Dashboard\AdminController;
+use App\Http\Controllers\Dashboard\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,22 +26,27 @@ Route::get('lang/{lang}', function ($lang) {
     
 });
 
-Route::post('register','Api\User\AuthController@register');
-Route::post('login','Api\User\AuthController@login');
 
+Route::prefix('user')->group(function ()
+{
+    Route::post('register','User\AuthController@register');
+    Route::post('login','User\AuthController@login');
+    Route::get('verify/{token}','User\VerificationController@verify');
+    Route::get('resend/{user}','User\VerificationController@resend');
+});
+Route::prefix('user')->middleware('auth:sanctum')->group(function () {
 
-Route::middleware('auth:sanctum')->group(function () {
-
-    Route::get('profile','Api\User\AuthController@profile');
-    Route::any('logout','Api\User\AuthController@logout');
+    Route::get('profile','User\AuthController@profile');
+    Route::post('logout','User\AuthController@logout');
 
     
 });
 
 Route::prefix('dashboard')->group(function(){
-    Route::apiResource('admin','Api\Dashboard\AdminController')->except(['create', 'edit']);
-    Route::apiResource('category','Api\Dashboard\CategoryController')->except(['create', 'edit']);
-    Route::apiResource('country','Api\Dashboard\countryController')->except(['create', 'edit']);
+    Route::apiResource('admin','Dashboard\AdminController')->except(['create', 'edit']);
+    Route::apiResource('user','Dashboard\UserController')->except(['create', 'edit']);
+    Route::apiResource('category','Dashboard\CategoryController')->except(['create', 'edit']);
+    Route::apiResource('country','Dashboard\countryController')->except(['create', 'edit']);
 });
 
 

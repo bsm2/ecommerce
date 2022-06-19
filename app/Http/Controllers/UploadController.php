@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\File;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -40,7 +41,7 @@ class UploadController extends Controller
         }
     }
 
-    public function delete($id)
+    public static function delete($id)
     {
         $file=File::find($id);
         if (!empty($file)) {
@@ -48,4 +49,18 @@ class UploadController extends Controller
             $file->delete();
         }
     }
+
+    public static function delete_product_files(Product $product)
+    {
+        $files=File::where('file_type','product')
+            ->where('relation_id',$product->id)
+            ->get();
+        if (count($files)>0) {
+            foreach ($files as $file) {
+                Self::delete($file->id);
+                Storage::deleteDirectory($file->path);
+            }
+        }
+    }
+
 }

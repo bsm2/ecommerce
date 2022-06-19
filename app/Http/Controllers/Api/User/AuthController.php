@@ -24,7 +24,7 @@ class AuthController extends Controller
 
         // $validator = Validator::make($data,);
 
-        $this->validate($request,[
+        $data=$this->validate($request,[
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|min:7',
@@ -36,6 +36,9 @@ class AuthController extends Controller
         // }
 
         $data['password']= bcrypt($request->password);
+        $data['verified']= false;
+        $data['verification_token']= User::generateVerificationCode();
+        //dd($data);
         $user=User::create($data);
         $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -75,10 +78,18 @@ class AuthController extends Controller
 
     public function logout(Request $request){
 
-        //request()->user()->currentAccessToken()->delete();
-        $request->user()->tokens()->delete();
-        auth('web')->logout();
+        //$request->user()->tokens()->where('id',  $request->user()->currentAccessToken()->id)->delete();;
+        $request->user()->currentAccessToken()->delete();
+        //$request->user()->currentAccessToken()->delete();
+        //$request->user()->tokens()->delete();
+        //auth('web')->logout();
+        // if(method_exists(auth()->user()->currentAccessToken(), 'delete')) {
+        //     auth()->user()->currentAccessToken()->delete();
+        // }
+        
         return $this->success('successfuly logged out');
 
     }
+
+
 }

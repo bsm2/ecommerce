@@ -200,9 +200,8 @@ class productController extends Controller
         if (is_array($request->item)) {
             foreach ($request->item as $id) {
                 $product=Product::find($id);
-                Storage::delete($product->logo);
+                $this->delete_product($product);
             }
-            Product::destroy($request->item);
         }
         session()->flash('success', __('site.deleted_successfully'));
         return redirect()->route('dashboard.product.index');
@@ -216,9 +215,15 @@ class productController extends Controller
      */
     public function destroy(product $product)
     {
-        Storage::delete($product->logo);
-        $product->delete();
+        $this->delete_product($product);
         session()->flash('success', __('site.deleted_successfully'));
         return redirect()->route('dashboard.product.index');
+    }
+
+    public function delete_product(product $product)
+    {
+        Storage::delete($product->photo);
+        Upload::delete_product_files($product);
+        $product->delete();
     }
 }
