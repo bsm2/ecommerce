@@ -17,17 +17,17 @@ class CreateAdminSeeder extends Seeder
     public function run()
     {
         $admin =Admin::create([
-            'name' => 'samaa', 
-            'email' => 'samaa3@gmail.com',
+            'name' => 'superadmin', 
+            'email' => 'superadmin@gmail.com',
             'password' => bcrypt('123456789')
         ]);
     
-        $role = Role::create(['guard_name' => 'admin','name' => 'Admin']);
-     
+        $role = Role::firstOrCreate(['guard_name' => 'admin','name' => 'SuperAdmin']);
+
         $permissions = Permission::pluck('id','id')->all();
-   
+
         $role->syncPermissions($permissions);
-     
+    
         $admin->assignRole([$role->id]);
     }
 }

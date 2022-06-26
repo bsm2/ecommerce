@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\DataTables\CountryDatatable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CountryRequest;
 use App\Models\Country;
+use App\Repositories\CountryRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Contracts\DataTable;
@@ -12,6 +14,18 @@ use Upload;
 
 class CountryController extends Controller
 {
+
+
+
+    private CountryRepository $repository;
+
+    public function __construct(CountryRepository $repository)
+    {
+
+        $this->repository = $repository;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -39,27 +53,11 @@ class CountryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CountryRequest $request)
     {
-        $data = $request->validate([
-            'name_ar' => 'required',
-            'name_en' => 'required',
-            'mob' => 'required',
-            'code' => 'required|min:3',
-            'currency'=>'required',
-            'logo' => 'required|image|mimes:jpg,jpeg,png,bmp,gif,svg,orwebp',
-            
-        ]);
 
-        if ($request->hasFile('logo')) {
-            $data['logo'] = Upload::up([
-                'file'=>'logo',
-                'path'=>'countries',
-                'upload_type'=>'single',
-            ]); 
-        }
+        $this->repository->create($request->all());
 
-        Country::create($data);
         session()->flash('success', __('site.added_successfully'));
         return redirect()->route('dashboard.country.index');
     }
@@ -94,28 +92,10 @@ class CountryController extends Controller
      * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Country $country)
+    public function update(CountryRequest $request, Country $country)
     {
-        $data = $request->validate([
-            'name_ar' => 'required',
-            'name_en' => 'required',
-            'mob' => 'required',
-            'code' => 'required|min:3',
-            'currency'=>'required',
-            'logo' => 'image|mimes:jpg,jpeg,png,bmp,gif,svg',
-            
-        ]);
+        $this->repository->update($country,$request->all());
 
-        if ($request->hasFile('logo')) {
-            $data['logo'] = Upload::up([
-                'file'=>'logo',
-                'path'=>'countries',
-                'upload_type'=>'single',
-                'delete_file'=>$country->logo
-            ]); 
-        }
-
-        $country->update($data);
         session()->flash('success', __('site.updated_successfully'));
         return redirect()->route('dashboard.country.index');
     }
@@ -141,8 +121,7 @@ class CountryController extends Controller
      */
     public function destroy(Country $country)
     {
-        Storage::delete($country->logo);
-        $country->delete();
+        $this->repository->delete($country);
         session()->flash('success', __('site.deleted_successfully'));
         return redirect()->route('dashboard.country.index');
     }

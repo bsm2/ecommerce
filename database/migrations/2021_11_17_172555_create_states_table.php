@@ -22,7 +22,7 @@ class CreateStatesTable extends Migration
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
 
             $table->integer('country_id')->unsigned();
-            $table->foreign('country_id')->references('id')->on('cities')->onDelete('cascade');
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
 
             $table->timestamps();
             $table->engine = 'InnoDB';

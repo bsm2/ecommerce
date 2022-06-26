@@ -20,14 +20,13 @@
                             <h4>
                                 @include('partials.errors')
                             </h4>
-                            {!! Form::open(['route'=>['dashboard.country.update',$country->id],'method'=>'PUT','files'=>true]) !!}
+                            {{ BsForm::resource('countries')->putModel($country, route('dashboard.country.update', $country), ['files' => true,'data-parsley-validate']) }}
                             <div class="form-group">
-                                {!! Form::label('name_ar', __('site.ar.name')) !!}
-                                {!! Form::text('name_ar',$country->name_ar, ['class'=>'form-control']) !!}
-                            </div>
-                            <div class="form-group">
-                                {!! Form::label('name_en', __('site.en.name')) !!}
-                                {!! Form::text('name_en',$country->name_en, ['class'=>'form-control']) !!}
+                                @bsMultilangualFormTabs
+                                <div >
+                                    {{ BsForm::text('name')->required()->attribute(['data-parsley-maxlength' => '191', 'data-parsley-minlength' => '3'])->label(__('countries.attributes.name')) }}
+                                </div>
+                                @endBsMultilangualFormTabs
                             </div>
                             <div class="form-group">
                                 {!! Form::label('code', __('site.code')) !!}
@@ -49,7 +48,7 @@
                                 <img src="{{Storage::url($country->logo)}}"  style="width: 100px" class="img-thumbnail logo-preview" alt="">
                             </div>
                             {!! Form::submit(__('site.edit') ,['class'=>'btn btn-primary']) !!}
-                            {!! Form::close() !!}
+                            {{ BsForm::close() }}
                         </div>
                     <!-- /.card-body -->
                     </div>

@@ -123,8 +123,7 @@ class CountryDatatable extends DataTable
                 ->searchable(false)
                 ->addClass('text-center'),
             Column::make('id')->title('#'),
-            Column::make('name_ar' )->title(__('site.ar.name')),
-            Column::make('name_en')->title(__('site.en.name')),
+            Column::make('name' )->title(__('site.name')),
             Column::make('code')->title(__('site.code')),
             Column::make('mob')->title(__('site.mob')),
             Column::make('currency')->title(__('site.currency')),

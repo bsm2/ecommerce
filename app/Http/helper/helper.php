@@ -19,7 +19,7 @@ if(!function_exists('lang')){
         if (session()->has('lang')) {
             return session('lang');
         }else {
-            return request()->session()->put('lang',settings()->main_lang);
+            return request()->session()->put('lang','ar');
         }
     }
 

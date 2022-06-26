@@ -45,8 +45,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <div class="logo">
-                        <h1><a href="/"><img style="width:100px" src="{{ Storage::url( settings()->logo) }}"></a></h1>
+                    {{-- <div class="logo"> <h1><a href="/"><img style="width:100px" src="{{ Storage::url( settings()->logo) }}"></a></h1> --}}
                     </div>
                 </div>
                 

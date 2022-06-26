@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "84b49cb4e73958ad192a6940207a4ff3",
+    "content-hash": "2c34000816188189968757524670c196",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -61,6 +61,91 @@
                 "source": "https://github.com/asm89/stack-cors/tree/v2.0.3"
             },
             "time": "2021-03-11T06:42:03+00:00"
+        },
+        {
+            "name": "astrotomic/laravel-translatable",
+            "version": "v11.9.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Astrotomic/laravel-translatable.git",
+                "reference": "d853a3c34be42941dc83c5cddd9e1e98c71abae1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Astrotomic/laravel-translatable/zipball/d853a3c34be42941dc83c5cddd9e1e98c71abae1",
+                "reference": "d853a3c34be42941dc83c5cddd9e1e98c71abae1",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "5.8.* || ^6.0 || ^7.0 || ^8.0",
+                "illuminate/database": "5.8.* || ^6.0 || ^7.0 || ^8.0",
+                "illuminate/support": "5.8.* || ^6.0 || ^7.0 || ^8.0",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "3.8.* || ^4.0 || ^5.0 || ^6.0",
+                "phpunit/phpunit": "^8.0 || ^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Astrotomic\\Translatable\\TranslatableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Astrotomic\\Translatable\\": "src/Translatable/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tom Witkowski",
+                    "email": "gummibeer@astrotomic.info",
+                    "homepage": "https://gummibeer.de",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Dimitrios Savvopoulos",
+                    "email": "ds@dimsav.com",
+                    "homepage": "http://dimsav.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Laravel package for multilingual models",
+            "homepage": "https://astrotomic.info",
+            "keywords": [
+                "database",
+                "language",
+                "laravel",
+                "translation"
+            ],
+            "support": {
+                "docs": "https://docs.astrotomic.info/laravel-translatable",
+                "email": "dev@astrotomic.info",
+                "issues": "https://github.com/Astrotomic/laravel-translatable/issues",
+                "source": "https://github.com/Astrotomic/laravel-translatable"
+            },
+            "funding": [
+                {
+                    "url": "https://offset.earth/treeware",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/Gummibeer",
+                    "type": "github"
+                },
+                {
+                    "url": "https://issuehunt.io/r/astrotomic",
+                    "type": "issuehunt"
+                }
+            ],
+            "time": "2020-11-19T14:10:38+00:00"
         },
         {
             "name": "brick/math",
@@ -936,6 +1021,120 @@
                 }
             ],
             "time": "2021-10-06T17:43:30+00:00"
+        },
+        {
+            "name": "laraeast/laravel-bootstrap-forms",
+            "version": "v5.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laraeast/laravel-bootstrap-forms.git",
+                "reference": "b2a1e949249b4a1a68df0524a21b842542f7d4e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laraeast/laravel-bootstrap-forms/zipball/b2a1e949249b4a1a68df0524a21b842542f7d4e7",
+                "reference": "b2a1e949249b4a1a68df0524a21b842542f7d4e7",
+                "shasum": ""
+            },
+            "require": {
+                "laraeast/laravel-locales": "^3.0",
+                "laravelcollective/html": "^5.6|^6.0|^7.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.4",
+                "orchestra/testbench": "^5.3|^6.0"
+            },
+            "type": "package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Laraeast\\LaravelBootstrapForms\\Providers\\BootstrapFormsServiceProvider"
+                    ],
+                    "aliases": {
+                        "BsForm": "Laraeast\\LaravelBootstrapForms\\Facades\\BsForm"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laraeast\\LaravelBootstrapForms\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ahmed Al-Shahawi",
+                    "email": "alshahawi@outlook.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Ahmed Fathy",
+                    "email": "aliraqi.dev@gmail.com"
+                }
+            ],
+            "description": "Provides an easy way to use bootstrap components within your Laravel projects.",
+            "support": {
+                "issues": "https://github.com/laraeast/laravel-bootstrap-forms/issues",
+                "source": "https://github.com/laraeast/laravel-bootstrap-forms/tree/v5.2.1"
+            },
+            "time": "2020-09-15T08:49:42+00:00"
+        },
+        {
+            "name": "laraeast/laravel-locales",
+            "version": "v3.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laraeast/laravel-locales.git",
+                "reference": "03b6a26858fa0b70d638ffa2a12f2ed104fa9a88"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laraeast/laravel-locales/zipball/03b6a26858fa0b70d638ffa2a12f2ed104fa9a88",
+                "reference": "03b6a26858fa0b70d638ffa2a12f2ed104fa9a88",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "~5.5|^6.0|^7.0|^8.0|^9.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.4",
+                "orchestra/testbench": "~3.0|~4.0|~5.0|~6.0"
+            },
+            "type": "package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Laraeast\\LaravelLocales\\Providers\\LocalesServiceProvider"
+                    ],
+                    "aliases": {
+                        "Locales": "Laraeast\\LaravelLocales\\Facades\\Locales"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laraeast\\LaravelLocales\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ahmed Aliraqi",
+                    "email": "aliraqi.dev@gmail.com"
+                }
+            ],
+            "description": "The package used to support multi locales in your application.",
+            "support": {
+                "issues": "https://github.com/laraeast/laravel-locales/issues",
+                "source": "https://github.com/laraeast/laravel-locales/tree/v3.2.1"
+            },
+            "time": "2022-02-12T17:18:33+00:00"
         },
         {
             "name": "laravel/framework",

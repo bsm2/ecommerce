@@ -238,7 +238,7 @@ return [
         'form'=> Collective\Html\FormFacade::class,
         'html'=> Collective\Html\HtmlFacade::class,
         //uploads
-        'Upload'=> App\Http\Controllers\UploadController::class,
+        // 'Upload'=> App\Http\Controllers\UploadController::class,
 
     ],
 

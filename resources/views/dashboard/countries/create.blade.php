@@ -22,12 +22,11 @@
                             </h4>
                             {!! Form::open(['route'=>'dashboard.country.store','method'=>'POST','files'=>true]) !!}
                             <div class="form-group">
-                                {!! Form::label('name_ar', __('site.ar.name')) !!}
-                                {!! Form::text('name_ar',old('name_ar'), ['class'=>'form-control']) !!}
-                            </div>
-                            <div class="form-group">
-                                {!! Form::label('name_en', __('site.en.name')) !!}
-                                {!! Form::text('name_en',old('name_en'), ['class'=>'form-control']) !!}
+                                @bsMultilangualFormTabs
+                                <div >
+                                    {{ BsForm::text('name')->required()->attribute(['data-parsley-maxlength' => '191', 'data-parsley-minlength' => '3'])->label(__('site.name')) }}
+                                </div>
+                                @endBsMultilangualFormTabs
                             </div>
                             <div class="form-group">
                                 {!! Form::label('code', __('site.code')) !!}
